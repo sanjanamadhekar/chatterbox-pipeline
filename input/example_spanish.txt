@@ -1,0 +1,1 @@
+¡Bienvenido al pipeline de ChatterBox TTS! Este es un sistema de síntesis de voz multilingüe que detecta automáticamente tu idioma y genera un habla natural. Soporta 23 idiomas y puede generar audio en formatos WAV, MP3 o PCM sin procesar.

@@ -1,0 +1,1 @@
+Welcome to the ChatterBox TTS Pipeline! This is a multilingual text-to-speech system that automatically detects your language and generates natural-sounding speech. It supports 23 languages and can output audio in WAV, MP3, or raw PCM formats.
