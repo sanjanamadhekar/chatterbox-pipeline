@@ -27,17 +27,46 @@ Arabic • Danish • German • Greek • English • Spanish • Finnish • F
 
 ### 1. Installation
 
+**Linux:**
 ```bash
 cd /home/user/Documents/chatterbox-pipeline
 
-# Install dependencies
-pip install -r requirements.txt
+# Create virtual environment
+python3 -m venv venv
+source venv/bin/activate
 
-# Install ChatterBox TTS (if not already installed)
+# Install PyTorch 2.6.0 with CUDA support (for GPU)
+pip install torch==2.6.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu124
+
+# OR for CPU only
+# pip install torch==2.6.0 torchaudio==2.6.0
+
+# Install other dependencies
+pip install langdetect pydub librosa transformers diffusers safetensors
+
+# Install ChatterBox TTS
 pip install chatterbox-tts
+```
 
-# OR install from your local ChatterBox source
-pip install -e /path/to/project2-chatterbox-tts
+**Windows:**
+```bash
+cd C:\Users\YourUsername\chatterbox-pipeline
+
+# Create virtual environment
+python -m venv venv
+venv\Scripts\activate
+
+# Install PyTorch 2.6.0 with CUDA support (for GPU)
+pip install torch==2.6.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu124
+
+# OR for CPU only
+# pip install torch==2.6.0 torchaudio==2.6.0
+
+# Install other dependencies
+pip install langdetect pydub librosa transformers diffusers safetensors
+
+# Install ChatterBox TTS
+pip install chatterbox-tts
 ```
 
 ### 2. Download ChatterBox Models
