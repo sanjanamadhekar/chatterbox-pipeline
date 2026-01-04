@@ -13,6 +13,8 @@ from pathlib import Path
 from typing import Optional
 from langdetect import detect
 from pydub import AudioSegment
+import urllib.request
+import hashlib
 
 # Add config to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'config'))
@@ -25,6 +27,59 @@ from language_config import (
 
 from chatterbox.tts import ChatterboxTTS
 from chatterbox.mtl_tts import ChatterboxMultilingualTTS
+
+
+def download_voice_file(url: str, cache_dir: str = "voices") -> str:
+    """
+    Download voice file from URL to local cache
+
+    Args:
+        url: URL of the voice file
+        cache_dir: Directory to cache voice files
+
+    Returns:
+        Path to cached voice file
+    """
+    # Create cache directory if it doesn't exist
+    os.makedirs(cache_dir, exist_ok=True)
+
+    # Create filename from URL hash to avoid duplicates
+    url_hash = hashlib.md5(url.encode()).hexdigest()
+    filename = f"{url_hash}.flac"
+    cache_path = os.path.join(cache_dir, filename)
+
+    # Download if not already cached
+    if not os.path.exists(cache_path):
+        print(f"📥 Downloading voice file from URL...")
+        try:
+            urllib.request.urlretrieve(url, cache_path)
+            print(f"✅ Cached voice file: {cache_path}")
+        except Exception as e:
+            print(f"⚠️  Failed to download voice file: {e}")
+            return None
+
+    return cache_path
+
+
+def get_voice_path(audio_prompt_path: Optional[str]) -> Optional[str]:
+    """
+    Get local voice path, downloading from URL if needed
+
+    Args:
+        audio_prompt_path: Path or URL to voice file
+
+    Returns:
+        Local path to voice file, or None if unavailable
+    """
+    if audio_prompt_path is None:
+        return None
+
+    # If it's a URL, download and cache it
+    if audio_prompt_path.startswith("http://") or audio_prompt_path.startswith("https://"):
+        return download_voice_file(audio_prompt_path)
+
+    # Otherwise it's already a local path
+    return audio_prompt_path
 
 
 class ChatterBoxPipeline:
@@ -107,6 +162,9 @@ class ChatterBoxPipeline:
             audio_prompt_path = get_default_voice(language)
             if audio_prompt_path:
                 print(f"🎤 Using default voice for {lang_name}")
+
+        # Convert URL to local path if needed
+        audio_prompt_path = get_voice_path(audio_prompt_path)
 
         # Generate audio
         print(f"🎵 Generating speech...")

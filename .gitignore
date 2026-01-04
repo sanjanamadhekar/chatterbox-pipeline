@@ -32,7 +32,9 @@ tests/output/
 *.mp3
 *.raw
 *.pcm
-*.flac
+
+# Cached voice files
+voices/
 
 # IDE
 .vscode/
