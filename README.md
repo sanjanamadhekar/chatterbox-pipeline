@@ -25,7 +25,28 @@ Arabic • Danish • German • Greek • English • Spanish • Finnish • F
 
 ## Quick Start
 
-### 1. Installation
+### Windows One-Click Setup (Recommended for Windows Users)
+
+**Automated setup and testing - just double-click and run:**
+
+```bash
+# Simply run the batch file
+run_tests.bat
+```
+
+The batch file will automatically:
+- ✅ Check Python installation
+- ✅ Create virtual environment
+- ✅ Install all dependencies (PyTorch with CUDA, ChatterBox TTS, etc.)
+- ✅ Run comprehensive tests
+- ✅ Generate sample audio files
+- ✅ Display results and open output folder
+
+**Requirements:** Python 3.10+ installed and added to PATH
+
+---
+
+### 1. Installation (Manual Setup)
 
 **Linux:**
 ```bash
@@ -193,7 +214,13 @@ python chatterbox_pipeline.py --text "Test" --format raw
 
 ## Testing
 
-### Quick Test (5 tests)
+### Automated Test Suite (Windows)
+```bash
+# Run everything automatically - setup, install, and test
+run_tests.bat
+```
+
+### Quick Test (Manual - 5 tests)
 ```bash
 python tests/quick_test.py
 ```

@@ -33,6 +33,13 @@ License: MIT
 
 import os
 import sys
+import warnings
+
+# Suppress deprecation warnings from third-party libraries
+warnings.filterwarnings('ignore', category=FutureWarning, module='diffusers')
+warnings.filterwarnings('ignore', category=FutureWarning, module='torch')
+warnings.filterwarnings('ignore', category=UserWarning, module='transformers')
+
 import torch
 import torchaudio as ta
 import numpy as np
@@ -42,6 +49,9 @@ from langdetect import detect
 from pydub import AudioSegment
 import urllib.request
 import hashlib
+
+# Set transformers to use eager attention to avoid SDPA warnings
+os.environ['TRANSFORMERS_ATTN_IMPLEMENTATION'] = 'eager'
 
 # Add config directory to Python path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'config'))
